@@ -1,0 +1,146 @@
+// HTML
+<canvas id="gameCanvas" width="800" height="400"></canvas>
+
+// JavaScript
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+const terrainHeight = 200; // Adjust this value to control the height of the terrain
+const terrainWidth = canvas.width; // Width of the terrain will match the canvas width
+
+// Generate random terrain points
+const terrainPoints = [];
+for (let x = 0; x <= terrainWidth; x++) {
+  const y = Math.random() * terrainHeight;
+  terrainPoints.push({ x, y });
+}
+
+// Render the terrain on the canvas
+ctx.beginPath();
+ctx.moveTo(0, terrainHeight);
+for (let i = 0; i < terrainPoints.length; i++) {
+  const { x, y } = terrainPoints[i];
+  ctx.lineTo(x, y);
+}
+ctx.lineTo(terrainWidth, terrainHeight);
+ctx.closePath();
+ctx.fillStyle = "green";
+ctx.fill();
+
+// Example: Draw a player on the terrain
+const playerX = 100; // Adjust this value to position the player horizontally
+const playerY = getPlayerY(playerX);
+ctx.beginPath();
+ctx.arc(playerX, playerY, 10, 0, 2 * Math.PI);
+ctx.fillStyle = "red";
+ctx.fill();
+
+// Function to get the corresponding terrain height for a given x-coordinate
+function getPlayerY(x) {
+  for (let i = 0; i < terrainPoints.length; i++) {
+    const { x: terrainX, y: terrainY } = terrainPoints[i];
+    if (x <= terrainX) {
+      return terrainY;
+    }
+  }
+  return terrainHeight;
+}
+// HTML
+<canvas id="gameCanvas" width="800" height="400"></canvas>
+
+// JavaScript
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+// Function to draw a hand at the specified coordinates
+function drawHand(x, y) {
+  // Draw the hand shape
+  ctx.beginPath();
+  ctx.arc(x, y, 40, 0, 2 * Math.PI);
+  ctx.fillStyle = "gray";
+  ctx.fill();
+  ctx.closePath();
+
+  // Draw the fingers
+  const fingerWidth = 10;
+  const fingerHeight = 30;
+  const fingerCount = 5;
+  const fingerSpacing = 15;
+  const fingerStartX = x - ((fingerCount - 1) * fingerSpacing) / 2;
+
+  for (let i = 0; i < fingerCount; i++) {
+    const fingerX = fingerStartX + i * fingerSpacing;
+
+    ctx.beginPath();
+    ctx.rect(fingerX, y - fingerHeight / 2, fingerWidth, fingerHeight);
+    ctx.fillStyle = "white";
+    ctx.fill();
+    ctx.closePath();
+  }
+}
+
+code
+// HTML
+<canvas id="gameCanvas" width="800" height="400"></canvas>
+
+// JavaScript
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+// Function to draw a hand at the specified coordinates
+function drawHand(x, y) {
+  // Draw the hand shape
+  ctx.beginPath();
+  ctx.arc(x, y, 40, 0, 2 * Math.PI);
+  ctx.fillStyle = "gray";
+  ctx.fill();
+  ctx.closePath();
+
+  // Draw the fingers
+  const fingerWidth = 10;
+  const fingerHeight = 30;
+  const fingerCount = 5;
+  const fingerSpacing = 15;
+  const fingerStartX = x - ((fingerCount - 1) * fingerSpacing) / 2;
+
+  for (let i = 0; i < fingerCount; i++) {
+    const fingerX = fingerStartX + i * fingerSpacing;
+
+    ctx.beginPath();
+    ctx.rect(fingerX, y - fingerHeight / 2, fingerWidth, fingerHeight);
+    ctx.fillStyle = "white";
+    ctx.fill();
+    ctx.closePath();
+  }
+}
+
+// Example usage: draw hands at specific coordinates
+drawHand(200, 200);
+drawHand(400, 200);
+// HTML
+<button id="crouchButton">Crouch</button>
+<div id="player"></div>
+
+// CSS
+#player {
+  width: 50px;
+  height: 100px;
+  background-color: blue;
+}
+
+// JavaScript
+const player = document.getElementById("player");
+const crouchButton = document.getElementById("crouchButton");
+let isCrouching = false;
+
+crouchButton.addEventListener("click", toggleCrouch);
+
+function toggleCrouch() {
+  isCrouching = !isCrouching;
+
+  if (isCrouching) {
+    player.style.height = "50px";
+  } else {
+    player.style.height = "100px";
+  }
+}
